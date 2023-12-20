@@ -8,7 +8,7 @@ TODO:
 Список сущностей: 
 Факты: 
 PLAYERS_X_BUILDS
-PLAYERS_X_RES
+PLAYERS_X_RESURSES
 PLAYERS_X_WARRIORS
 
 Измерения: 
