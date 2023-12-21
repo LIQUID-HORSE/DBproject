@@ -1,0 +1,171 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{caption}
+\usepackage{dsfont}
+\usepackage{tikz}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{imakeidx}
+\usepackage[russian]{cleveref}
+\usepackage[a4paper,left=15mm,right=15mm,top=30mm,bottom=20mm]{geometry}
+\usepackage{longtable}
+\parindent=0mm
+\parskip=3mm
+
+\begin{document}
+
+\begin{longtable}{lllll}
+\caption{PLAYERS} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endfirsthead
+\caption*{Таблица игроков (PLAYERS) (продолжение)} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endhead
+PK & player\_id & SERIAL & - & Идентификатор игрока \\
+& nick & VARCHAR(255) & NOT NULL, UNIQUE & Никнейм игрока \\
+& mail & VARCHAR(255) & NOT NULL, UNIQUE & Электронная почта игрока \\
+& pass & VARCHAR(255) & NOT NULL & Пароль игрока \\
+\end{longtable}
+
+\begin{longtable}{lllll}
+\caption{RESURSES} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endfirsthead
+\caption*{Таблица ресурсов (RESURSES) (продолжение)} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endhead
+PK & res\_type & SERIAL & - & Идентификатор типа ресурсов \\
+& name & VARCHAR(255) & NOT NULL, UNIQUE & Название ресурса \\
+\end{longtable}
+
+\begin{longtable}{lllll}
+\caption{BUILDS} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endfirsthead
+\caption*{Таблица зданий (BUILDS) (продолжение)} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endhead
+PK & build\_type & SERIAL & - & Идентификатор типа здания \\
+FK & res\_type & INTEGER & NOT NULL & Идентификатор типа ресурсов \\
+& name & VARCHAR(255) & NOT NULL, UNIQUE & Название здания \\
+& price & INTEGER & NOT NULL & Стоимость здания \\
+\end{longtable}
+
+\begin{longtable}{lllll}
+\caption{WARRIORS} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endfirsthead
+\caption*{WARRIORS} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endhead
+PK & warrior\_type & SERIAL & - & Идентификатор типа воина \\
+FK & res\_type & INTEGER & NOT NULL & Идентификатор типа ресурсов \\
+& name & VARCHAR(255) & NOT NULL, UNIQUE & Название типа воина \\
+& price & INTEGER & NOT NULL & Стоимость найма воина \\
+\end{longtable}
+
+\begin{longtable}{lllll}
+\caption{PLAYERS\_X\_BUILDS} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endfirsthead
+\caption*{Таблица строений игрока (PLAYERS\_X\_BUILDS) (продолжение)} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endhead
+PK & id & SERIAL & - & Уникальный идентификатор записи \\
+PK, FK & player\_id & INTEGER & NOT NULL & Идентификатор игрока \\
+PK, FK & build\_type & INTEGER & NOT NULL & Идентификатор типа строения \\
+&  quantity  & INTEGER & NOT NULL & Количество строений \\
+\end{longtable}
+
+\begin{longtable}{lllll}
+\caption{PLAYERS\_X\_RESURSES} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endfirsthead
+\caption*{Таблица ресурсов игрока (PLAYERS\_X\_RESURSES) (продолжение)} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endhead
+PK & id & SERIAL & - & Уникальный идентификатор записи \\
+PK, FK & player\_id & INTEGER & NOT NULL & Идентификатор игрока \\
+PK, FK & res\_type & INTEGER & NOT NULL & Идентификатор типа ресурса \\
+&  quantity  & INTEGER & NOT NULL & Количество ресурсов \\
+\end{longtable}
+
+\begin{longtable}{lllll}
+\caption{PLAYERS\_X\_WARRIORS} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endfirsthead
+\caption*{Таблица воинов игрока (PLAYERS\_X\_WARRIORS) (продолжение)} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endhead
+PK & id & SERIAL & - & Уникальный идентификатор записи \\
+PK, FK & player\_id & INTEGER & NOT NULL & Идентификатор игрока \\
+PK, FK & warrior\_type & INTEGER & NOT NULL & Идентификатор типа воина \\
+&  quantity  & INTEGER & NOT NULL & Количество воинов \\
+\end{longtable}
+
+\begin{longtable}{lllll}
+\caption{INTERNSHIPS} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endfirsthead
+\caption*{Таблица взаимодействий (INTERNSHIPS) (продолжение)} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endhead
+PK & int\_id & SERIAL & - & Уникальный идентификатор взаимодействия \\
+& int\_type & INTEGER & NOT NULL & Тип взаимодействия \\
+FK & player\_id1 & INTEGER & NOT NULL & Идентификатор первого игрока \\
+FK & player\_id2 & INTEGER & NOT NULL & Идентификатор второго игрока \\
+\end{longtable}
+
+\begin{longtable}{lllll}
+\caption{INTERNSHIPS\_TYPE} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endfirsthead
+\caption*{Таблица взаимодействий (INTERNSHIPS\_TYPE) (продолжение)} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endhead
+PK & int\_type & SERIAL & - & Тип взаимодействия \\
+& name & VARCHAR(255) & NOT NULL, UNIQUE & Описание взаимодействия\\
+\end{longtable}
+
+\begin{longtable}{lllll}
+\caption{INTERNSHIPS\_RES} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endfirsthead
+\caption*{Таблица ресурсов взаимодействия (INTERNSHIPS\_RES) (продолжение)} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endhead
+PK & id & SERIAL & - & Уникальный идентификатор записи \\
+FK & int\_id & INTEGER & NOT NULL & Идентификатор взаимодействия \\
+FK & res\_type & INTEGER & NOT NULL & Идентификатор типа ресурса \\
+&  quantity  & INTEGER & NOT NULL & Количество ресурсов \\
+\end{longtable}
+
+\begin{longtable}{lllll}
+\caption{WARRIORS\_HISTORY} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endfirsthead
+\caption*{Таблица ресурсов взаимодействия (WARRIORS\_HISTORY) (продолжение)} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endhead
+FK & warrior\_type & INTEGER & NOT NULL & Идентификатор типа воина \\
+& name\_old & VARCHAR(255) & NOT NULL & Старое название типа воина \\
+& price\_old & INTEGER & NOT NULL & Старая стоимость найма воина \\
+\end{longtable}
+
+\begin{longtable}{lllll}
+\caption{BUILDS\_HISTORY} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endfirsthead
+\caption*{Таблица ресурсов взаимодействия (BUILDS\_HISTORY) (продолжение)} \\
+\textbf{PK/FK} & \textbf{Поле} & \textbf{Тип данных} & \textbf{Ограничения} & \textbf{Описание} \\
+\endhead
+FK & build\_type & INTEGER & NOT NULL & Идентификатор типа ресурсов \\
+& name\_old & VARCHAR(255) & NOT NULL & Старое название здания \\
+& price\_old & INTEGER & NOT NULL & Старая стоимость здания \\
+\end{longtable}
+
+\end{document}
