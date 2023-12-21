@@ -96,7 +96,10 @@ INSERT INTO BUILDS (res_type, name, price) VALUES
 (2, 'Barracks', 500),
 (3, 'Gold Mine', 150),
 (2, 'Elixir Collector', 150),
-(3, 'Dark Elixir Drill', 1000);
+(3, 'Dark Elixir Drill', 1000),
+(4, 'Emerald Drill', 200),
+(4, 'Museum', 300),
+(1, 'Theatre', 2000);
 
 DROP TABLE IF EXISTS PLAYERS_X_BUILDS CASCADE;
 CREATE TABLE PLAYERS_X_BUILDS (
@@ -112,6 +115,8 @@ INSERT INTO PLAYERS_X_BUILDS (player_id, build_type, count) VALUES
 (3, 3, 3),
 (4, 4, 4),
 (5, 5, 1);
+(1, 7, 1),
+(5, 2, 2);
 
 DROP TABLE IF EXISTS PLAYERS_X_RESURSES CASCADE;
 CREATE TABLE PLAYERS_X_RESURSES (
@@ -148,7 +153,7 @@ CREATE TABLE INTERNSHIPS_RES (
     id SERIAL PRIMARY KEY,
     int_id INTEGER REFERENCES INTERNSHIPS(int_id),
     res_type INTEGER REFERENCES RESURSES(res_type),
-    count INTEGER
+    quantity INTEGER
 );
 
 INSERT INTO INTERNSHIPS_RES (int_id, res_type, count) VALUES
