@@ -3,7 +3,7 @@ TODO:
 2a - ок
 2b - ок
 
-2c - проверить физ модель (надо вроде только TEXT на VARCHAR поменять; SERIAL для PLAYERS и INTERNSHIPS_TYPE поставить)
+2c - проверить физ модель (надо вроде только TEXT на VARCHAR поменять; SERIAL для PLAYERS и INTERNSHIPS_TYPE поставить; поменять count на quantity)
 
 3 - изменить res_type и PK для history (пока оставил, решим позже)
 4 - проверить мои инсерты
