@@ -3,10 +3,10 @@ INSERT INTO PLAYERS (nick, mail, pass) VALUES
 ('sasaprincess', 'sasatop@example.com', 'sasasasa228'),
 ('cactustim', 'almosttravis@example.com', 'passreader16yrsoldhotboy'),
 ('antonp', 'anton2004@example.com', 'nevzlomat'),
-('DussyPestryer', 'neonrider@example.com', 'dolbil_dremal322'),
-('dead_inside_toxic_emotionless', 'imdead@example.com', 'sftier30'),
+('DussyPestryerzxc', 'neonrider@example.com', 'dolbil_dremal322'),
+('dead_inside_zxc_emotionless', 'imdead@example.com', 'sftier30'),
 ('hurt_weak', 'notox@cvrsxd.com', 'neverm1nd'),
-('watch_me_die', 'letmedrop@example.com', 'd0nt0uch'),
+('zxc_watch_me_die', 'letmedrop@example.com', 'd0nt0uch'),
 ('igrushka_otchima', 'iloveit@example.com', 'b1gsplashh1337'),
 ('clown_suffered', 'clown_safr@example.com', 'justf0rfun');
 
