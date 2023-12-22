@@ -177,66 +177,35 @@ INSERT INTO INTERNSHIPS_RES (int_id, res_type, quantity) VALUES
 (4, 2, 100),
 (5, 1, 50);
 
+--9
+CREATE OR REPLACE FUNCTION record_builds_history()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.name IS DISTINCT FROM NEW.name OR OLD.price IS DISTINCT FROM NEW.price THEN
+        INSERT INTO BUILDS_HISTORY(build_type, res_type, name_old, price_old)
+        VALUES (OLD.build_type, OLD.res_type, OLD.name, OLD.price);
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
+CREATE TRIGGER builds_update_trigger
+AFTER UPDATE ON BUILDS
+FOR EACH ROW
+EXECUTE FUNCTION record_builds_history();
 
+CREATE OR REPLACE FUNCTION record_warriors_history()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.name IS DISTINCT FROM NEW.name OR OLD.price IS DISTINCT FROM NEW.price THEN
+        INSERT INTO WARRIORS_HISTORY(warrior_type, res_type, name_old, price_old)
+        VALUES (OLD.warrior_type, OLD.res_type, OLD.name, OLD.price);
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
--- Создание схемы для представлений
-CREATE SCHEMA IF NOT EXISTS views_schema;
-
--- Представление для таблицы PLAYERS
-CREATE OR REPLACE VIEW views_schema.players_view AS
-SELECT
-    player_id,
-    nick,
-    mail,
-    LEFT(pass, 1) || '*****' AS pass_masked -- Маскирование пароля
-FROM
-    PLAYERS;
-
--- Представление для таблицы BUILDS
-CREATE OR REPLACE VIEW views_schema.builds_view AS
-SELECT
-    name,
-    price
-FROM
-    BUILDS;
-
--- Представление для таблицы RES
-CREATE OR REPLACE VIEW views_schema.res_view AS
-SELECT
-    name
-FROM
-    RESURSES;
-
--- Представление для таблицы WARRIORS
-CREATE OR REPLACE VIEW views_schema.warriors_view AS
-SELECT
-    name,
-    price
-FROM
-    WARRIORS;
-
--- Представление для таблицы INT
-CREATE OR REPLACE VIEW views_schema.internships_view AS
-SELECT
-    int_type,
-    player_id1,
-    player_id2
-FROM
-    INTERNSHIPS;
-
--- Представление для таблицы INT_TYPE
-CREATE OR REPLACE VIEW views_schema.internships_type_view AS
-SELECT
-    name
-FROM
-    INTERNSHIPS_TYPE;
-
--- Представление для таблицы INT_RES
-CREATE OR REPLACE VIEW views_schema.internships_res_view AS
-SELECT
-    int_id,
-    res_type,
-    quantity
-FROM
-    INTERNSHIPS_RES;
+CREATE TRIGGER warriors_update_trigger
+AFTER UPDATE ON WARRIORS
+FOR EACH ROW
+EXECUTE FUNCTION record_warriors_history();
